@@ -1,0 +1,21 @@
+create view hotel as
+
+with yearly_report as (
+    select *
+    from dbo.[2018]
+    union 
+    select *
+    from dbo.[2019]
+    UNION
+    select *
+    from dbo.[2020]
+)
+
+select y.*, s.discount, m.cost
+from yearly_report y
+left join dbo.market_segment s
+on y.market_segment = s.market_segment
+left join dbo.meal m
+on y.meal = m.meal
+
+go
